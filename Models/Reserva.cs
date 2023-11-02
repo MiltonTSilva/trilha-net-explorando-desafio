@@ -1,4 +1,4 @@
-namespace DesafioProjetoHospedagem.Models
+namespace HospedagemHotel.Models
 {
     public class Reserva
     {
@@ -16,15 +16,15 @@ namespace DesafioProjetoHospedagem.Models
         public void CadastrarHospedes(List<Pessoa> hospedes)
         {
             // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
-            // *IMPLEMENTE AQUI*
-            if (true)
+
+            if (hospedes.Count() <= Suite.Capacidade)
             {
                 Hospedes = hospedes;
             }
             else
             {
                 // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
-                // *IMPLEMENTE AQUI*
+                throw new Exception("A capacidade é menor que o número de hóspedes recebido.");
             }
         }
 
@@ -34,27 +34,27 @@ namespace DesafioProjetoHospedagem.Models
         }
 
         public int ObterQuantidadeHospedes()
-        {
-            // TODO: Retorna a quantidade de hóspedes (propriedade Hospedes)
-            // *IMPLEMENTE AQUI*
-            return 0;
+        {     
+            return this.Hospedes.Count();
         }
 
-        public decimal CalcularValorDiaria()
+        public (string mensagem, decimal valorDiaria) CalcularValorDiaria()
         {
-            // TODO: Retorna o valor da diária
-            // Cálculo: DiasReservados X Suite.ValorDiaria
-            // *IMPLEMENTE AQUI*
-            decimal valor = 0;
-
+            decimal valor = DiasReservados * Suite.ValorDiaria;
             // Regra: Caso os dias reservados forem maior ou igual a 10, conceder um desconto de 10%
-            // *IMPLEMENTE AQUI*
-            if (true)
+            string mensagem = "";
+            if (DiasReservados >= 10)
             {
-                valor = 0;
+                
+                decimal diaria = (valor * 90) /100;
+                decimal desconto = valor - diaria;
+                
+                valor = diaria;
+                mensagem = $" teve um desconte de {desconto.ToString("C") }";
+                
             }
 
-            return valor;
+            return (mensagem,valor);
         }
     }
 }
